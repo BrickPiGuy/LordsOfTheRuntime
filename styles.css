@@ -376,8 +376,27 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    margin-bottom: var(--spacing-sm);
     font-size: 0.9rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.card-complexity {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-orange);
+    background: rgba(255, 107, 53, 0.15);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 .card-title {
