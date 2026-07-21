@@ -229,12 +229,14 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--spacing-sm);
+    width: 100%;
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .principle-item {
+    min-width: 0;
     padding: var(--spacing-sm) var(--spacing-md);
     background: rgba(0, 212, 255, 0.1);
     border: 1px solid var(--accent-cyan);
@@ -243,6 +245,7 @@ body {
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--accent-cyan);
+    overflow-wrap: anywhere;
     transition: all var(--transition-fast);
     cursor: pointer;
 }
