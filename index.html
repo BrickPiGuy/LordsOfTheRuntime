@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Algorithms - Interactive Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1 class="title">Lords of the Runtime</h1>
+                <p class="subtitle">Top 10 Algorithms Every Undergrad Should Know</p>
+            </div>
+            <div class="search-container">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search algorithms..."
+                    aria-label="Search algorithms"
+                >
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="principles-section">
+            <h2>Guiding Principle</h2>
+            <p>A modern undergraduate algorithms lecture should connect foundational techniques to the systems students use today:</p>
+            <div class="principles-grid">
+                <div class="principle-item">Search Engines</div>
+                <div class="principle-item">GPS Navigation</div>
+                <div class="principle-item">Cybersecurity</div>
+                <div class="principle-item">Cloud Computing</div>
+                <div class="principle-item">Recommendations</div>
+                <div class="principle-item">Machine Learning</div>
+                <div class="principle-item">LLMs</div>
+                <div class="principle-item">Social Networks</div>
+            </div>
+        </section>
+
+        <section class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Algorithms</button>
+                <button class="filter-btn" data-filter="difficulty">By Difficulty</button>
+                <button class="filter-btn" data-filter="application">By Application</button>
+            </div>
+        </section>
+
+        <section class="algorithms-grid" id="algorithmsGrid">
+            <!-- Algorithm cards will be inserted here -->
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Lords of the Runtime. Educational resource for computer science students.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
