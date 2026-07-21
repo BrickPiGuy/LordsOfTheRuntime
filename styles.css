@@ -432,6 +432,13 @@ body {
     display: block;
 }
 
+.card-teaser {
+    color: var(--text-primary);
+    font-size: 0.96rem;
+    line-height: 1.55;
+    margin-bottom: var(--spacing-md);
+}
+
 .card-description {
     color: var(--text-secondary);
     font-size: 0.95rem;
@@ -467,6 +474,65 @@ body {
     color: var(--text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
+}
+
+.card-rich {
+    display: none;
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+}
+
+.card-rich.visible {
+    display: block;
+}
+
+.rich-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.rich-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(176, 179, 193, 0.2);
+    border-radius: 8px;
+    padding: 0.8rem;
+}
+
+.rich-item-full {
+    grid-column: 1 / -1;
+}
+
+.rich-item h4 {
+    font-size: 0.76rem;
+    color: var(--accent-magenta);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 0.4rem;
+}
+
+.rich-item p {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.principle-tags {
+    margin-top: var(--spacing-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.principle-tag {
+    font-size: 0.72rem;
+    color: var(--accent-cyan);
+    border: 1px solid rgba(0, 212, 255, 0.45);
+    background: rgba(0, 212, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    letter-spacing: 0.3px;
 }
 
 .expand-btn {
@@ -549,6 +615,14 @@ body {
 
     .principles-section {
         padding: var(--spacing-md);
+    }
+
+    .rich-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rich-item-full {
+        grid-column: auto;
     }
 }
 

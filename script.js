@@ -112,6 +112,28 @@ const algorithms = [
     }
 ];
 
+// Rich-card template content for pilot cards (first 2 algorithms only)
+const richAlgorithmDetails = {
+    1: {
+        whatItSolves: 'Finds a target in large sorted data quickly, avoiding linear scans.',
+        coreIdea: 'Check the middle value, discard half the search space, and repeat until found.',
+        workedExample: 'In a sorted list of 1,000,000 versions, binary search finds the first bad release in about 20 checks.',
+        whyNow: 'Powers fast incident triage in CI/CD, log timestamp lookups, and index-heavy backend services.',
+        tradeoff: 'Very fast lookups, but only when data remains sorted or indexable.',
+        avoidWhen: 'Avoid for unsorted streams or frequently mutating datasets without efficient re-indexing.',
+        principles: ['Search Engines', 'Cloud Computing']
+    },
+    2: {
+        whatItSolves: 'Sorts large datasets efficiently while balancing speed, memory, and stability needs.',
+        coreIdea: 'Quicksort partitions in-place for speed; Merge Sort splits/merges for stable predictable performance.',
+        workedExample: 'For 50GB of logs, external merge sort can process chunks in memory and merge outputs on disk.',
+        whyNow: 'Critical for ETL pipelines, ranking feeds, and distributed batch systems where order impacts downstream logic.',
+        tradeoff: 'Quicksort: lower memory footprint. Merge Sort: stable order and better for external/distributed workflows.',
+        avoidWhen: 'Avoid quicksort worst-case inputs without safeguards; avoid merge sort when strict memory minimization is required.',
+        principles: ['Cloud Computing', 'Recommendations']
+    }
+};
+
 // DOM Elements
 const searchInput = document.getElementById('searchInput');
 const algorithmsGrid = document.getElementById('algorithmsGrid');
@@ -233,8 +255,56 @@ function renderAlgorithms() {
     });
 }
 
+function getTeaserText(algo, richDetails) {
+    if (richDetails) {
+        return richDetails.whatItSolves;
+    }
+
+    const firstSentence = algo.description.split('. ')[0];
+    return firstSentence.endsWith('.') ? firstSentence : `${firstSentence}.`;
+}
+
+function buildRichDetailsMarkup(richDetails) {
+    if (!richDetails) {
+        return '';
+    }
+
+    return `
+        <div class="card-rich card-expandable">
+            <div class="rich-grid">
+                <div class="rich-item">
+                    <h4>Core Idea</h4>
+                    <p>${richDetails.coreIdea}</p>
+                </div>
+                <div class="rich-item">
+                    <h4>Worked Example</h4>
+                    <p>${richDetails.workedExample}</p>
+                </div>
+                <div class="rich-item">
+                    <h4>Why It Matters Now</h4>
+                    <p>${richDetails.whyNow}</p>
+                </div>
+                <div class="rich-item">
+                    <h4>Tradeoff</h4>
+                    <p>${richDetails.tradeoff}</p>
+                </div>
+                <div class="rich-item rich-item-full">
+                    <h4>When Not To Use</h4>
+                    <p>${richDetails.avoidWhen}</p>
+                </div>
+            </div>
+            <div class="principle-tags" aria-label="Connected guiding principles">
+                ${richDetails.principles.map(tag => `<span class="principle-tag">${tag}</span>`).join('')}
+            </div>
+        </div>
+    `;
+}
+
 // Create Algorithm Card
 function createAlgorithmCard(algo) {
+    const richDetails = richAlgorithmDetails[algo.number] || null;
+    const teaserText = getTeaserText(algo, richDetails);
+
     const card = document.createElement('div');
     card.className = 'algorithm-card';
     card.innerHTML = `
@@ -244,17 +314,18 @@ function createAlgorithmCard(algo) {
         </div>
         <h3 class="card-title">${algo.name}</h3>
         <span class="card-concept">${algo.concept}</span>
-        <p class="card-description">${algo.description}</p>
-        <div class="card-application">
+        <p class="card-teaser">${teaserText}</p>
+        <p class="card-description card-expandable">${algo.description}</p>
+        <div class="card-application card-expandable">
             <h4>Modern Applications</h4>
             <p>${algo.application}</p>
         </div>
+        ${buildRichDetailsMarkup(richDetails)}
         <button class="expand-btn visible" aria-label="Expand algorithm details">Read More</button>
     `;
     
     const expandBtn = card.querySelector('.expand-btn');
-    const description = card.querySelector('.card-description');
-    const application = card.querySelector('.card-application');
+    const expandableSections = card.querySelectorAll('.card-expandable');
     
     expandBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -263,15 +334,13 @@ function createAlgorithmCard(algo) {
         if (isExpanded) {
             // Collapse
             card.classList.remove('expanded');
-            description.classList.remove('visible');
-            application.classList.remove('visible');
+            expandableSections.forEach(section => section.classList.remove('visible'));
             expandBtn.classList.remove('expanded');
             expandBtn.textContent = 'Read More';
         } else {
             // Expand
             card.classList.add('expanded');
-            description.classList.add('visible');
-            application.classList.add('visible');
+            expandableSections.forEach(section => section.classList.add('visible'));
             expandBtn.classList.add('expanded');
             expandBtn.textContent = 'Read Less';
         }
