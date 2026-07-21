@@ -133,6 +133,39 @@ function attachEventListeners() {
     filterButtons.forEach(btn => {
         btn.addEventListener('click', handleFilter);
     });
+    
+    // Add click handlers to principle items
+    document.querySelectorAll('.principle-item').forEach(item => {
+        item.addEventListener('click', handlePrincipleClick);
+    });
+}
+
+function handlePrincipleClick(e) {
+    const principle = e.target.textContent.trim().toLowerCase();
+    
+    // Map principles to search keywords
+    const principleMap = {
+        'search engines': 'search ranking',
+        'gps navigation': 'A* path route',
+        'cybersecurity': 'hashing security connectivity',
+        'cloud computing': 'sorting pipelines distributed',
+        'recommendations': 'pagerank recommendation',
+        'machine learning': 'gradient descent optimization neural',
+        'llms': 'attention transformer',
+        'social networks': 'pagerank connectivity network'
+    };
+    
+    const searchTerm = principleMap[principle] || principle;
+    searchInput.value = searchTerm;
+    searchQuery = searchTerm.toLowerCase();
+    
+    // Reset filter to 'all'
+    currentFilter = 'all';
+    filterButtons.forEach(btn => btn.classList.remove('active'));
+    filterButtons[0].classList.add('active');
+    
+    renderAlgorithms();
+    searchInput.focus();
 }
 
 // Search Handler

@@ -229,6 +229,9 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--spacing-sm);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .principle-item {
@@ -241,7 +244,7 @@ body {
     font-weight: 500;
     color: var(--accent-cyan);
     transition: all var(--transition-fast);
-    cursor: default;
+    cursor: pointer;
 }
 
 .principle-item:hover {
