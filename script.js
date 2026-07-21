@@ -145,14 +145,14 @@ function handlePrincipleClick(e) {
     
     // Map principles to search keywords
     const principleMap = {
-        'search engines': 'search ranking',
-        'gps navigation': 'A* path route',
-        'cybersecurity': 'hashing security connectivity',
-        'cloud computing': 'sorting pipelines distributed',
-        'recommendations': 'pagerank recommendation',
-        'machine learning': 'gradient descent optimization neural',
-        'llms': 'attention transformer',
-        'social networks': 'pagerank connectivity network'
+        'search engines': 'binary search pagerank ranking',
+        'gps navigation': 'a* route navigation pathfinding',
+        'cybersecurity': 'hashing security dfs connectivity',
+        'cloud computing': 'merge sort distributed pipeline',
+        'recommendations': 'pagerank recommendation ranking',
+        'machine learning': 'gradient descent machine learning',
+        'llms': 'attention transformer language models',
+        'social networks': 'pagerank social network union-find'
     };
     
     const searchTerm = principleMap[principle] || principle;
@@ -194,12 +194,20 @@ function renderAlgorithms() {
     
     // Apply search filter
     if (searchQuery) {
-        filtered = filtered.filter(algo => 
-            algo.name.toLowerCase().includes(searchQuery) ||
-            algo.concept.toLowerCase().includes(searchQuery) ||
-            algo.description.toLowerCase().includes(searchQuery) ||
-            algo.application.toLowerCase().includes(searchQuery)
-        );
+        const tokens = searchQuery.split(/\s+/).filter(Boolean);
+
+        filtered = filtered.filter(algo => {
+            const searchableText = [
+                algo.name,
+                algo.concept,
+                algo.description,
+                algo.application,
+                algo.category
+            ].join(' ').toLowerCase();
+
+            // Match if any token appears so principle shortcuts produce useful results.
+            return tokens.some(token => searchableText.includes(token));
+        });
     }
     
     // Apply category filter
