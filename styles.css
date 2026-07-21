@@ -367,14 +367,14 @@ body {
 }
 
 .card-number {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+    border-radius: 50%;
     font-weight: bold;
     font-size: 0.9rem;
 }
